@@ -1,4 +1,4 @@
-package model;
+package dao.station;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -6,16 +6,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import model.station.Station;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @Setter
-public abstract class MobilityEntity {
-    String id;
+public class UsageState {
+    String name;
     String description;
-
-    Station station;
+    List<TimeMeasurement> timeMeasurements;
 }

@@ -1,4 +1,4 @@
-package model.station;
+package dao.station;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

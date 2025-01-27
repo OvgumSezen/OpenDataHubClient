@@ -1,4 +1,4 @@
-package model.station;
+package dao.station;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -11,8 +11,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class Coordinate {
-    Double x;
-    Double y;
-    String srid;
+public class Datatypes {
+    Availability availability;
+    UsageState usageState;
 }

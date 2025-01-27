@@ -1,4 +1,4 @@
-package model.station;
+package dao.station;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -6,15 +6,22 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @Setter
-public class Availability {
+public class Station {
     String name;
-    String description;
-    List<TimeMeasurement> timeMeasurements;
+    String origin;
+    String type;
+    String code;
+
+    Boolean active;
+    Boolean available;
+
+    Coordinate coordinate;
+    Datatypes datatype;
+
+    Station parent;
 }
