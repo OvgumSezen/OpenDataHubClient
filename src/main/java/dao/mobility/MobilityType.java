@@ -1,5 +1,4 @@
-package dao;
-
+package dao.mobility;
 import lombok.Getter;
 
 @Getter
