@@ -26,7 +26,7 @@ public class MobilityClient {
     private final HttpClient httpClient;
     private ODHEntityDeserializationStrategy deserializationStrategy;
 
-    private String uriString;
+    private String uriString = "";
 
     private MobilityClient() {
         baseUrl = ODHClientConfig.getInstance().getBaseUrl();
