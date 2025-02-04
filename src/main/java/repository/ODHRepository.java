@@ -1,4 +1,4 @@
 package repository;
 
-public interface ODHRepository<T> {
+public interface ODHRepository {
 }
