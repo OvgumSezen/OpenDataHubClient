@@ -51,6 +51,10 @@ public class MobilityEntityDeserializationStrategy implements ODHEntityDeseriali
 
     private JsonNode getJsonNode(String responseBodyString) throws JsonProcessingException {
         JsonNode rootNode = objectMapper.readTree(responseBodyString);
-        return rootNode.get("data").get(mobilityType.getId());
+        JsonNode dataNode = rootNode.get("data");
+        if(dataNode == null) {
+            return null;
+        }
+        return dataNode.get(mobilityType.getId());
     }
 }

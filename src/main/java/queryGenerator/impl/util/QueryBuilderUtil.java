@@ -1,5 +1,7 @@
-package repository.queryBuilder;
+package queryGenerator.impl.util;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +37,9 @@ public class QueryBuilderUtil {
     }
 
     public static String extractAlias(String methodName, String operator) {
-        return methodName.replace("findBy", "").replace(operator, "").toLowerCase();
+        return methodName.replace("findBy", "")
+                .replace(getOperationName(operator), "")
+                .toLowerCase();
     }
 
     public static String extractValue(Object value) {
@@ -59,9 +63,19 @@ public class QueryBuilderUtil {
 
     private static String handleValue(Object value) {
         if (value instanceof String) {
-            return ((String) value).replace(",", "\\,").replace("\"", "\\\""); // escape special characters
+            return URLEncoder.encode((String) value, StandardCharsets.UTF_8).replace("+", "%20");
         } else {
             return value.toString();
         }
+    }
+
+    private static String getOperationName(String operator) {
+        String operationName = "";
+        for(Map.Entry<String, String> entry: operatorMap.entrySet()) {
+            if(operator.equals(entry.getValue())){
+                operationName = entry.getKey();
+            }
+        }
+        return operationName;
     }
 }

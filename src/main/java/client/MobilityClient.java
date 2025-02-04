@@ -97,6 +97,16 @@ public class MobilityClient {
         return this;
     }
 
+    public MobilityClient setWhere(String whereQuery) {
+        if(!uriString.isBlank() && uriString.contains("where")) {
+            logURIAlreadySet();
+            return this;
+        }
+
+        uriString += "where=" + whereQuery + "&";
+        return this;
+    }
+
     public MobilityEntity execute() {
         HttpRequest request = HttpRequest.newBuilder()
                 .setHeader("Content-Type", "application/json")

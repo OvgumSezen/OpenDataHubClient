@@ -1,15 +1,13 @@
-package repository;
-
-import repository.queryBuilder.ODHQueryBuilder;
+package queryGenerator.impl;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-public class ODHRepositoryInvocationHandler implements InvocationHandler {
-    private final ODHQueryBuilder queryStringGenerator;
+public class ODHQueryGeneratorInvocationHandler implements InvocationHandler {
+    private final ODHQueryGeneratorInvocationHelper queryStringGenerator;
 
-    public ODHRepositoryInvocationHandler() {
-        this.queryStringGenerator = new ODHQueryBuilder();  // Instantiate the query generator
+    public ODHQueryGeneratorInvocationHandler() {
+        this.queryStringGenerator = new ODHQueryGeneratorInvocationHelper();  // Instantiate the query generator
     }
 
     @Override

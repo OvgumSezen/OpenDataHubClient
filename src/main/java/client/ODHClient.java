@@ -42,6 +42,11 @@ public class ODHClient {
         return this;
     }
 
+    public ODHClient setWhere(String whereQuery) {
+        mobilityClient.setWhere(whereQuery);
+        return this;
+    }
+
     public ODHClient setOffset(Integer offset) {
         mobilityClient.setOffset(offset);
         return this;

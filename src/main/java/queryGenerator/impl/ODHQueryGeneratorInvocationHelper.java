@@ -1,6 +1,8 @@
-package repository.queryBuilder;
+package queryGenerator.impl;
 
-public class ODHQueryBuilder {
+import queryGenerator.impl.util.QueryBuilderUtil;
+
+public class ODHQueryGeneratorInvocationHelper {
     public String generateQuery(String methodName, Object[] vals) {
         return generateQueryString(methodName, vals[0]);
     }
