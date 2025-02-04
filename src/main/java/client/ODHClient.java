@@ -22,15 +22,32 @@ public class ODHClient {
         return instance;
     }
 
-    public ODHEntity getStations(MobilityType mobilityType) {
-        return mobilityClient.getStations(mobilityType);
+    public ODHClient getStations(MobilityType mobilityType) {
+        mobilityClient.getStations(mobilityType);
+        return this;
     }
 
-    public ODHEntity getStationsAndDatatypes(MobilityType mobilityType) {
-        return mobilityClient.getStationsAndDatatypes(mobilityType);
+    public ODHClient getStationsAndDatatypes(MobilityType mobilityType) {
+        mobilityClient.getStationsAndDatatypes(mobilityType);
+        return this;
     }
 
-    public ODHEntity getStationsAndDatatypesAndMeasurement(MobilityType mobilityType) {
-        return mobilityClient.getStationsAndDatatypesAndMeasurement(mobilityType);
+    public ODHClient getStationsAndDatatypesAndMeasurement(MobilityType mobilityType) {
+        mobilityClient.getStationsAndDatatypesAndMeasurement(mobilityType);
+        return this;
+    }
+
+    public ODHClient setLimit(Integer limit) {
+        mobilityClient.setLimit(limit);
+        return this;
+    }
+
+    public ODHClient setOffset(Integer offset) {
+        mobilityClient.setOffset(offset);
+        return this;
+    }
+
+    public ODHEntity execute() {
+        return mobilityClient.execute();
     }
 }

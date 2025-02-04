@@ -26,6 +26,8 @@ public class MobilityClient {
     private final HttpClient httpClient;
     private ODHEntityDeserializationStrategy deserializationStrategy;
 
+    private String uriString;
+
     private MobilityClient() {
         baseUrl = ODHClientConfig.getInstance().getBaseUrl();
         httpClient = HttpClient.newHttpClient();
@@ -39,37 +41,69 @@ public class MobilityClient {
         return instance;
     }
 
-    public MobilityEntity getStations(MobilityType mobilityType) {
+    public MobilityClient getStations(MobilityType mobilityType) {
         deserializationStrategy = new MobilityEntityDeserializationStrategy(mobilityType);
-        HttpRequest request = HttpRequest.newBuilder()
-                .setHeader("Content-Type", "application/json")
-                .uri(URI.create(baseUrl + "/" + mobilityType.getId()))
-                .GET()
-                .build();
 
-        HttpResponse<String> response = sendRequest(request);
-        return mapToMobilityEntity(response);
+        if(uriString.isBlank()) {
+            uriString = baseUrl + "/" + mobilityType.getId() + "?";
+        } else {
+            logURIAlreadySet();
+        }
+
+        return this;
     }
 
-    public MobilityEntity getStationsAndDatatypes(MobilityType mobilityType) {
+    public MobilityClient getStationsAndDatatypes(MobilityType mobilityType) {
         deserializationStrategy = new MobilityEntityDeserializationStrategy(mobilityType);
-        HttpRequest request = HttpRequest.newBuilder()
-                .setHeader("Content-Type", "application/json")
-                .uri(URI.create(baseUrl + "/" + mobilityType.getId() + DATATYPES_ENDPOINT))
-                .GET()
-                .build();
 
-        HttpResponse<String> response = sendRequest(request);
-        return mapToMobilityEntity(response);
+        if(uriString.isBlank()) {
+            uriString = baseUrl + "/" + mobilityType.getId() + DATATYPES_ENDPOINT + "?";
+        } else {
+            logURIAlreadySet();
+        }
+
+        return this;
     }
 
-    public MobilityEntity getStationsAndDatatypesAndMeasurement(MobilityType mobilityType) {
+    public MobilityClient getStationsAndDatatypesAndMeasurement(MobilityType mobilityType) {
         deserializationStrategy = new MobilityEntityDeserializationStrategy(mobilityType);
+
+        if(uriString.isBlank()) {
+            uriString = baseUrl + "/" + mobilityType.getId() + DATATYPES_ENDPOINT + MEASUREMENT_ENDPOINT + "?";
+        } else {
+            logURIAlreadySet();
+        }
+
+        return this;
+    }
+
+    public MobilityClient setLimit(Integer limit) {
+        if(!uriString.isBlank() && uriString.contains("limit")) {
+            logURIAlreadySet();
+            return this;
+        }
+
+        uriString += "limit=" + limit + "&";
+        return this;
+    }
+
+    public MobilityClient setOffset(Integer offset) {
+        if(!uriString.isBlank() && uriString.contains("offset")) {
+            logURIAlreadySet();
+            return this;
+        }
+
+        uriString += "offset=" + offset + "&";
+        return this;
+    }
+
+    public MobilityEntity execute() {
         HttpRequest request = HttpRequest.newBuilder()
                 .setHeader("Content-Type", "application/json")
-                .uri(URI.create(baseUrl + "/" + mobilityType.getId() + DATATYPES_ENDPOINT + MEASUREMENT_ENDPOINT))
+                .uri(URI.create(uriString))
                 .GET()
                 .build();
+        uriString = "";
 
         HttpResponse<String> response = sendRequest(request);
         return mapToMobilityEntity(response);
@@ -105,4 +139,7 @@ public class MobilityClient {
         }
     }
 
+    private void logURIAlreadySet() {
+        logger.info("LOG: url is already set: {}", uriString );
+    }
 }
